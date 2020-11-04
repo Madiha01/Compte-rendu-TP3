@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+h1 {
+ border-bottom: 3px solid #cc9900;
+ color: #996600;
+ font-size: 30px;
+}
+table, th , td {
+ border: 1px solid grey;
+ border-collapse: collapse;
+ padding: 5px;
+}
+table tr:nth-child(odd) {
+ background-color: #f1f1f1;
+}
+table tr:nth-child(even) {
+ background-color: #ffffff;
+}
+</style>
+</head>
+<body>
+<h1>Ajouter un etudiant</h1>
+<script>
+function ajouter()
+{
+var xmlhttp = new XMLHttpRequest();
+cin=document.getElementById("cin").value;
+email=document.getElementById("email").value;
+pwd=document.getElementById("pwd").value;
+nom=document.getElementById("nom").value;
+prenom=document.getElementById("prenom").value;
+adresse=document.getElementById("adresse").value;
+Classe=document.getElementById("Classe").value;
+
+var url ="http://localhost/TP2_web/ajouter.php?cin="+cin+"&nom="+nom+"&prenom="+prenom+"&email="+email+"&pwd="+pwd+"&adresse="+adresse+"&Classe="+Classe;
+xmlhttp.onreadystatechange=function() 
+{
+ if (this.readyState == 4 && this.status == 200) 
+ {
+ if(this.responseText=="OK")
+ {
+ document.getElementById("demo").innerHTML ="Etudiant est bien ajouté";
+ document.getElementById("demo").style.backgroundColor="green";
+ }
+ else
+ {
+ document.getElementById("demo").innerHTML ="Etudiant est déja inscrit, vérifier le CIN";
+ document.getElementById("demo").style.backgroundColor="#fba";
+ }
+}
+}
+xmlhttp.open("GET", url, true);
+xmlhttp.send();
+}
+</script>
+<p>
+ Nom :
+<br><input type="text" id="nom" name="nom" required/><br>
+Prénom :
+<br><input type="text" id="prenom" name="prenom" required/><br>
+CIN :
+<br><input type="number" id="cin" name="cin" required/><br>
+Mot de passe :
+<br><input type="password" id="pwd" name="pwd" required/><br>
+E-mail :<br><input type="email" id="email" name="email"
+required/><br>
+Classe :
+<br><input type="text" id="Classe" name="Classe" required/><br>
+Adresse :
+<br><input type="text" id="adresse" name="adresse" required/><br><br>
+<button type="submit" onclick="ajouter()"> ajouter </button>
+</p>
+<div id="demo"> </div>
+</body>
+</html>
